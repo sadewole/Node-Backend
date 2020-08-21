@@ -1,7 +1,7 @@
 {
-  "name": "simple-user-logs",
+  "name": "node_backend",
   "version": "1.0.0",
-  "description": "Template description for user logs app",
+  "description": "Template description for node_backend app",
   "main": "index.js",
   "scripts": {
     "start": "node dist/index.js",

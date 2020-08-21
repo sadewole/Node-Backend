@@ -1,27 +1,30 @@
 version: '3'
 services:
-	app:
-		container_name: user-logs
-		restart: always
-		build: .
-		env_file: .env
-		ports:
-			- '80:5000'
-		environment:
-			- JWT_SECRET=$JWT_SECRET
-			- DB_CONFIG_DEV=$DB_CONFIG_DEV
-			- DB_CONFIG_USERNAME=$DB_CONFIG_USERNAME
-			- DB_CONFIG_PASSWORD=$DB_CONFIG_PASSWORD
-			- DB_CONFIG_HOST=$DB_CONFIG_HOST
-			- DB_CONFIG_PORT=$DB_CONFIG_PORT
-		links: 
-			- postgres
-	postgres:
-		image: 'postgres: latest'
-		restart: unless-stopped
-		ports: 
-			-'5432:5432'
-		environment:
-			- POSTGRES_DB=$DB_CONFIG_DEV
-			- POSTGRES_USER=$DB_CONFIG_USERNAME
-			- POSTGRES_PASSWORD=$DB_CONFIG_PASSWORD
+  node_backend:
+    container_name: 'node_backend'
+    restart: always
+    build: .
+    env_file: .env
+    ports:
+      - '80:5000'
+    environment:
+      - JWT_SECRET=$JWT_SECRET
+      - DB_CONFIG_DEV=$DB_CONFIG_DEV
+      - DB_CONFIG_USERNAME=$DB_CONFIG_USERNAME
+      - DB_CONFIG_PASSWORD=$DB_CONFIG_PASSWORD
+      - DB_CONFIG_HOST=$DB_CONFIG_HOST
+      - DB_CONFIG_PORT=$DB_CONFIG_PORT
+    links:
+      - postgres
+  postgres:
+    image: 'postgres'
+    container_name: 'postgres'
+    restart: unless-stopped
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./pg/db_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=$DB_CONFIG_DEV
+      - POSTGRES_USER=$DB_CONFIG_USERNAME
+      - POSTGRES_PASSWORD=$DB_CONFIG_PASSWORD
