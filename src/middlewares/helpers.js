@@ -43,6 +43,7 @@ const Helper = {
     authSchema: joi.object().keys({
       fname: joi.string().required(),
       lname: joi.string().required(),
+      phone: joi.number().required(),
       email: joi.string().email().required(),
       password: joi.string().required(),
     }),

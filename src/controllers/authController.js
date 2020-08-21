@@ -10,7 +10,7 @@ const baseUrl = process.env.BASE_URL;
 class AuthController {
   static async signUp(req, res) {
     try {
-      let { fname, lname, email, password } = req.value.body;
+      let { fname, lname, email, phone, password } = req.value.body;
       email = email.toLowerCase().trim();
       const existingUser = await Helper.existEmail(email);
       if (existingUser) {
@@ -26,6 +26,7 @@ class AuthController {
         fname,
         lname,
         email,
+        phone,
         password: hashPassword,
       });
 
